@@ -3,7 +3,6 @@ import hashlib
 import time
 import struct
 import base64
-
 class OTPGenerator:
     """A class to generate one-time passwords (OTP) using TOTP algorithm."""
     def __init__(self, secret_key):
@@ -21,7 +20,7 @@ class OTPGenerator:
             otp_value = struct.unpack(">I", truncated_hash)[0]
             otp_value &= 0x7FFFFFFF  # Mask most significant bit to make it 31 bits
             otp = otp_value % 1000000  # Generate 6-digit OTP
-            return f"{otp:06d}"
+            return str(otp)
         except (TypeError, ValueError, base64.binascii.Error, struct.error):
             # Handle decoding errors or invalid input
             return None
