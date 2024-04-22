@@ -1,0 +1,83 @@
+<PasswordPopup>:
+    title: "Enter Password"
+    size_hint: None, None
+    size: 200, 200
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: password_input
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 30
+            hint_text: "Password"
+        Label:
+            id: error_label
+            text: ""
+            size_hint_y: None
+            height: 30
+            color: 1, 0, 0, 1  # Red color
+        Button:
+            text: "Submit"
+            size_hint_y: None
+            height: 50
+            on_release: root.check_password(password_input.text)
+
+<AccountButton>:
+    font_size: 14
+    color: 1, 1, 1, 1
+    background_normal: ''
+    background_color: 0, 0.2, 0.4, 1
+    height: 30
+
+<Button>:
+    font_size: 14
+    color: 1, 1, 1, 1  # White text
+    background_normal: ''  # Remove the default background
+    background_color: 0, 0.2, 0.4, 1  # Custom background color
+    height: 50
+
+<MainScreen>:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'vertical'
+        # Label for displaying token
+        Label:
+            id: token_label
+            text: "Welcome"
+            font_size: '20sp'
+            size_hint_y: None
+            height: 90
+            background_color: [0, 0.2, 0.4, 1]
+            color: [1, 1, 1, 1]
+        # Progress bar for token refresh countdown
+        ProgressBar:
+            id: progress_bar
+            max: 30
+            value: 30
+            size_hint_y: None
+            height: 5
+        # Label for displaying countdown
+        Label:
+            id: countdown_label
+            text: "..."
+            size_hint_y: None
+            height: 20
+            color: [1, 1, 1, 1]
+        # Scrollable view for listing accounts
+        ScrollView:
+            size_hint_y: None
+            height: 390
+            BoxLayout:
+                id: accounts_layout
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+        # Button for adding new accounts, placed outside the ScrollView for fixed positioning
+        Button:
+            text: "Add Account"
+            size_hint_y: None
+            height: 50
+            on_press: root.show_add_account_popup(self)
+            background_color: 0, 0.5, 0.5, 1  # Different color to distinguish it from account buttons

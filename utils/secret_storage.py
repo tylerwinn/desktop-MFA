@@ -47,8 +47,7 @@ class SecretStorage:
         try:
             return fernet.decrypt(data).decode()
         except Exception as e:
-            print(e)
-            raise ValueError("Invalid password or corrupted data")
+            raise ValueError("failure to decrypt data")
 
     def load_secrets(self):
         if os.path.exists(self.filename):
@@ -59,7 +58,7 @@ class SecretStorage:
                     self.secrets = json.loads(decrypted_data)
                     self.decrypted = True
                 except ValueError:
-                    print("Unable to decrypt the data. The password might be incorrect, or the data is corrupted.")
+                    raise ValueError("Failed to decrypt data")
 
     def save_secret(self, name, secret):
         self.secrets[name] = secret
